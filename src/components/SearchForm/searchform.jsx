@@ -1,32 +1,40 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
+import "./SearchForm.css";
 
-function SearchForm({ onSearch }) {
-  const [searchTerm, setSearchTerm] = useState("");
+export default function SearchForm({ onSearch }) {
+  const [keyword, setKeyword] = useState("");
+  const [error, setError] = useState("");
 
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (!searchTerm.trim()) return;
-
-    onSearch(searchTerm);
-    setSearchTerm("");
-  }
+    if (!keyword) {
+      setError("Please enter a keyword");
+      return;
+    }
+    setError("");
+    onSearch(keyword);
+  };
 
   return (
-    <section className="search-form">
-      <form className="search-form__form" onSubmit={handleSubmit}>
+    <form className="search-form" onSubmit={handleSubmit}>
+      <div className="search-form__bar">
         <input
           type="text"
           className="search-form__input"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Enter topic"
+          value={keyword}
+          onChange={(e) => setKeyword(e.target.value)}
         />
-
-        <button type="submit" className="search-form__button">
+        <button className="search-form__btn" type="submit">
           Search
         </button>
-      </form>
-    </section>
+      </div>
+      {error && <span className="search-form__error">{error}</span>}
+    </form>
   );
 }
 
-export default SearchForm;
+SearchForm.propTypes = {
+  onSearch: PropTypes.func.isRequired,
+};

@@ -2,17 +2,18 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-export default function LoginModal({
+export default function RegisterModal({
   onClose,
   onAltClick,
-  onLogin,
-  registeredUser,
+  onSuccess,
   isOpen,
 }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [usernameError, setUsernameError] = useState("");
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -32,19 +33,34 @@ export default function LoginModal({
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onLogin(registeredUser || { username: "testuser", email });
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+    if (!e.target.validity.valid) {
+      setUsernameError(e.target.validationMessage);
+    } else {
+      setUsernameError("");
+    }
   };
 
-  const isFormValid = email && password && !emailError && !passwordError;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSuccess({ username, email });
+  };
+
+  const isFormValid =
+    email &&
+    password &&
+    username &&
+    !emailError &&
+    !passwordError &&
+    !usernameError;
 
   return (
     <ModalWithForm
-      title="Sign in"
-      buttonText="Sign in"
+      title="Sign up"
+      buttonText="Sign up"
       onClose={onClose}
-      altText="Sign up"
+      altText="Sign in"
       onAltClick={onAltClick}
       isFormValid={isFormValid}
       onSubmit={handleSubmit}
@@ -70,11 +86,24 @@ export default function LoginModal({
             <input
               className="modal__input"
               type="password"
+              placeholder="Enter password"
               value={password}
               onChange={handlePasswordChange}
               required
             />
             <span className="modal__error">{passwordError}</span>
+          </label>
+          <label className="modal__label">
+            Username
+            <input
+              className="modal__input"
+              type="text"
+              placeholder="Enter username"
+              value={username}
+              onChange={handleUsernameChange}
+              required
+            />
+            <span className="modal__error">{usernameError}</span>
           </label>
         </>
       )}
@@ -82,13 +111,9 @@ export default function LoginModal({
   );
 }
 
-LoginModal.propTypes = {
+RegisterModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   onAltClick: PropTypes.func.isRequired,
-  onLogin: PropTypes.func.isRequired,
-  registeredUser: PropTypes.shape({
-    username: PropTypes.string,
-    email: PropTypes.string,
-  }),
+  onSuccess: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
 };

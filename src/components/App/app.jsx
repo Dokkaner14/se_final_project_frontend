@@ -6,7 +6,7 @@ import Home from "../Home/Home";
 import Footer from "../Footer/Footer";
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
-import RegisterSuccessModal from "../RegisterSuccessModal/RegisterSuccessModal";
+import successModal from "../successModal/successModal";
 import SavedNews from "../SavedNews/SavedNews";
 
 import { getNews } from "../../utils/newsApi";
@@ -27,7 +27,7 @@ function App() {
   const handleLoginClick = () => setActiveModal("login");
   const handleCloseModal = () => setActiveModal("");
   const handleRegisterClick = () => setActiveModal("register");
-  const handleRegisterSuccess = () => setActiveModal("registerSuccess");
+  const handlesuccess = () => setActiveModal("success");
   const handleLogout = () => setCurrentUser(null);
 
   const handleLogin = (user) => {
@@ -37,7 +37,7 @@ function App() {
 
   const handleRegister = (user) => {
     setRegisteredUser(user);
-    handleRegisterSuccess();
+    handlesuccess();
   };
 
   const handleSearch = (keyword) => {
@@ -125,8 +125,8 @@ function App() {
           isOpen={activeModal === "register"}
         />
       )}
-      {activeModal === "registerSuccess" && (
-        <RegisterSuccessModal
+      {activeModal === "success" && (
+        <successModal
           onClose={handleCloseModal}
           onSignInClick={handleLoginClick}
         />
