@@ -1,48 +1,70 @@
-import "./SavedNews.css";
-import PropTypes from "prop-types";
 import NewsCardList from "../NewsCardList/NewsCardList";
+import PropTypes from "prop-types";
+import "./SavedNews.css";
 
-export default function SavedNews({
-  currentUser,
-  savedArticles,
-  onDeleteArticle,
-}) {
-  const keywords = [...new Set(savedArticles.map((a) => a.keyword))];
-  const keywordDisplay =
-    keywords.length <= 2
-      ? keywords.join(", ")
-      : `${keywords.slice(0, 2).join(", ")}, and ${keywords.length - 2} other`;
+function SavedNews({ userName, savedArticles, isLoggedIn, onDeleteArticle }) {
+  const keywords = [
+    ...new Set(savedArticles.map((a) => a.keyword).filter(Boolean)),
+  ];
+
+  if (savedArticles.length === 0) {
+    return (
+      <main className="saved-news">
+        <section className="saved-news__section">
+          <h2 className="saved-news__title">Saved Articles</h2>
+          <p className="saved-news__empty">
+            You haven&apos;t saved any articles yet.
+          </p>
+        </section>
+      </main>
+    );
+  }
 
   return (
-    <div className="saved-news">
-      <section className="saved-news__banner">
-        <p className="saved-news__label">Saved articles</p>
-        <h2 className="saved-news__title">
-          {currentUser.username}, you have {savedArticles.length} saved articles
-        </h2>
+    <main className="saved-news">
+      <section className="saved-news__section">
+        <h2 className="saved-news__title">Saved Articles</h2>
+
+        <p className="saved-news__count">
+          {userName}, you have {savedArticles.length}
+          <span className="saved-news__desktop-break">
+            {" "}
+            saved
+            <br />
+            articles
+          </span>
+          <span className="saved-news__mobile-break">
+            <br />
+            saved articles
+          </span>
+        </p>
+
         {keywords.length > 0 && (
           <p className="saved-news__keywords">
-            <span>By keywords: </span>
-            <strong>{keywordDisplay}</strong>
+            <span className="saved-news__keywords-label">By keywords:</span>
+            <span className="saved-news__keywords-list">
+              {keywords.join(", ")}
+            </span>
           </p>
         )}
       </section>
-      {savedArticles.length > 0 && (
-        <NewsCardList
-          articles={savedArticles}
-          currentUser={currentUser}
-          onDeleteArticle={onDeleteArticle}
-          isSavedNews={true}
-        />
-      )}
-    </div>
+
+      <NewsCardList
+        articles={savedArticles}
+        isLoggedIn={isLoggedIn}
+        isSavedNewsPage={true}
+        onDelete={onDeleteArticle}
+        onSave={null}
+      />
+    </main>
   );
 }
 
 SavedNews.propTypes = {
-  currentUser: PropTypes.shape({
-    username: PropTypes.string.isRequired,
-  }).isRequired,
+  userName: PropTypes.string,
   savedArticles: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
   onDeleteArticle: PropTypes.func.isRequired,
 };
+
+export default SavedNews;

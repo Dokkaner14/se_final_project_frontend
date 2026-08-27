@@ -1,119 +1,145 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import "./RegisterModal.css";
 
-export default function RegisterModal({
-  onClose,
-  onAltClick,
-  onSuccess,
+function RegisterModal({
   isOpen,
+  onClose: closeModal,
+  onRegister,
+  onSwitchToSignIn,
 }) {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
+
+  const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [usernameError, setUsernameError] = useState("");
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-    if (!e.target.validity.valid) {
-      setEmailError(e.target.validationMessage);
-    } else {
-      setEmailError("");
-    }
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-    if (!e.target.validity.valid) {
-      setPasswordError(e.target.validationMessage);
-    } else {
-      setPasswordError("");
-    }
-  };
-
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-    if (!e.target.validity.valid) {
-      setUsernameError(e.target.validationMessage);
-    } else {
-      setUsernameError("");
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSuccess({ username, email });
-  };
 
   const isFormValid =
-    email &&
-    password &&
-    username &&
+    name.trim() &&
+    email.trim() &&
+    password.trim() &&
+    !nameError &&
     !emailError &&
-    !passwordError &&
-    !usernameError;
+    !passwordError;
+
+  function validateEmail(value) {
+    if (!value) return setEmailError("Email is required");
+    const regex = /\S+@\S+\.\S+/;
+    if (!regex.test(value)) return setEmailError("Enter a valid email");
+    setEmailError("");
+  }
+
+  function validatePassword(value) {
+    if (!value) return setPasswordError("Password is required");
+    if (value.length < 6)
+      return setPasswordError("Password must be at least 6 characters");
+    setPasswordError("");
+  }
+
+  function validateName(value) {
+    if (!value.trim()) return setNameError("Name is required");
+    if (value.length < 2)
+      return setNameError("Name must be at least 2 characters");
+    setNameError("");
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!isFormValid) return;
+    onRegister(email, password, name);
+  }
+
+  function handleClose() {
+    setEmail("");
+    setPassword("");
+    setName("");
+    setEmailError("");
+    setPasswordError("");
+    setNameError("");
+    closeModal();
+  }
 
   return (
     <ModalWithForm
-      title="Sign up"
-      buttonText="Sign up"
-      onClose={onClose}
-      altText="Sign in"
-      onAltClick={onAltClick}
-      isFormValid={isFormValid}
-      onSubmit={handleSubmit}
       isOpen={isOpen}
+      onClose={handleClose}
+      title="Sign up"
+      onSubmit={handleSubmit}
+      onSwitch={onSwitchToSignIn}
+      switchText="Sign in"
+      isSubmitDisabled={!isFormValid}
     >
-      {(firstInputRef) => (
-        <>
-          <label className="modal__label">
-            Email
-            <input
-              ref={firstInputRef}
-              className="modal__input"
-              type="email"
-              placeholder="Enter email"
-              value={email}
-              onChange={handleEmailChange}
-              required
-            />
-            <span className="modal__error">{emailError}</span>
-          </label>
-          <label className="modal__label">
-            Password
-            <input
-              className="modal__input"
-              type="password"
-              placeholder="Enter password"
-              value={password}
-              onChange={handlePasswordChange}
-              required
-            />
-            <span className="modal__error">{passwordError}</span>
-          </label>
-          <label className="modal__label">
-            Username
-            <input
-              className="modal__input"
-              type="text"
-              placeholder="Enter username"
-              value={username}
-              onChange={handleUsernameChange}
-              required
-            />
-            <span className="modal__error">{usernameError}</span>
-          </label>
-        </>
-      )}
+      <label className="modal__label">
+        Email
+        <input
+          type="email"
+          className="modal__input"
+          name="fake-register-email"
+          autoComplete="new-email"
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck="false"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            validateEmail(e.target.value);
+          }}
+          placeholder="Enter email"
+        />
+        {emailError && <span className="modal__error">{emailError}</span>}
+      </label>
+
+      <label className="modal__label">
+        Password
+        <input
+          type="password"
+          className="modal__input"
+          name="fake-register-password"
+          autoComplete="new-password"
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck="false"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            validatePassword(e.target.value);
+          }}
+          placeholder="Enter password"
+        />
+        {passwordError && <span className="modal__error">{passwordError}</span>}
+      </label>
+
+      <label className="modal__label">
+        Name
+        <input
+          type="text"
+          className="modal__input"
+          name="fake-register-name"
+          autoComplete="new-name"
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck="false"
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
+            validateName(e.target.value);
+          }}
+          placeholder="Enter your name"
+        />
+        {nameError && <span className="modal__error">{nameError}</span>}
+      </label>
     </ModalWithForm>
   );
 }
 
 RegisterModal.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  onAltClick: PropTypes.func.isRequired,
-  onSuccess: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onRegister: PropTypes.func.isRequired,
+  onSwitchToSignIn: PropTypes.func.isRequired,
 };
+
+export default RegisterModal;

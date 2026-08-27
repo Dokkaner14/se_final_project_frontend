@@ -1,5 +1,5 @@
 import "./About.css";
-import homePhoto from "../../assets/home_photo.jpg";
+import homePhoto from "../../assets/frontPageBackground.svg";
 
 export default function About() {
   return (

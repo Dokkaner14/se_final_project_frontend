@@ -1,136 +1,225 @@
-import { useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-
+import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { searchNews } from "../../utils/newsApi";
+import { ERROR_MESSAGES } from "../../utils/errors";
+import { fakeCheckToken, fakeLogin } from "../../utils/auth";
 import Header from "../Header/Header";
-import Home from "../Home/Home";
+import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
-import successModal from "../successModal/successModal";
 import SavedNews from "../SavedNews/SavedNews";
-
-import { getNews } from "../../utils/newsApi";
-
+import About from "../About/About";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import SuccessModal from "../SuccessModal/SuccessModal";
+import Preloader from "../PreLoader/PreLoader";
+import NewsCardList from "../NewsCardList/NewsCardList";
 import "./App.css";
 
 function App() {
-  const [activeModal, setActiveModal] = useState("");
-  const [currentUser, setCurrentUser] = useState(null);
-  const [registeredUser, setRegisteredUser] = useState(null);
-  const [articles, setArticles] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [activeModal, setActiveModal] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchError, setSearchError] = useState("");
-  const [hasSearched, setHasSearched] = useState(false);
   const [savedArticles, setSavedArticles] = useState([]);
-  const [lastKeyword, setLastKeyword] = useState("");
+  const [hasSearched, setHasSearched] = useState(false);
+  const [articles, setArticles] = useState([]);
+  const [searchError, setSearchError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [lastSearchQuery, setLastSearchQuery] = useState("");
+  const [isUserLoaded, setIsUserLoaded] = useState(false);
+  const [userName, setUserName] = useState("");
 
-  const handleLoginClick = () => setActiveModal("login");
-  const handleCloseModal = () => setActiveModal("");
-  const handleRegisterClick = () => setActiveModal("register");
-  const handlesuccess = () => setActiveModal("success");
-  const handleLogout = () => setCurrentUser(null);
+  const location = useLocation();
 
-  const handleLogin = (user) => {
-    setCurrentUser(user);
-    setActiveModal("");
-  };
+  function handleLoginClick() {
+    setActiveModal("login");
+  }
 
-  const handleRegister = (user) => {
-    setRegisteredUser(user);
-    handlesuccess();
-  };
+  function handleRegister() {
+    setIsLoggedIn(true);
+    setActiveModal("success");
+  }
 
-  const handleSearch = (keyword) => {
-    setLastKeyword(keyword);
-    setIsLoading(true);
+  async function handleLoginSubmit(email, password) {
+    try {
+      const data = await fakeLogin(email, password);
+
+      localStorage.setItem("token", data.token);
+
+      setIsLoggedIn(true);
+      setUserName(data.name);
+
+      setActiveModal(null);
+    } catch (err) {
+      console.error("Login failed:", err);
+      console.error("Something went wrong. Please try again.");
+    }
+  }
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      Promise.resolve().then(() => setIsUserLoaded(true));
+      return;
+    }
+
+    fakeCheckToken(token)
+      .then((data) => {
+        setIsLoggedIn(true);
+        setUserName(data.name);
+      })
+      .catch(() => {
+        setIsLoggedIn(false);
+        setUserName("");
+        localStorage.removeItem("token");
+      })
+      .finally(() => {
+        setIsUserLoaded(true);
+      });
+  }, []);
+
+  function handleLogout() {
+    setIsLoggedIn(false);
+    setUserName("");
+    localStorage.removeItem("token");
+  }
+
+  async function handleSearch(query) {
+    setLastSearchQuery(query);
+    if (!query.trim()) {
+      setSearchError(ERROR_MESSAGES.emptySearch);
+      return;
+    }
     setSearchError("");
-    setArticles([]);
+    setErrorMessage("");
     setHasSearched(true);
-    getNews(keyword)
-      .then((data) => setArticles(data.articles))
-      .catch(() =>
-        setSearchError(
-          "Sorry, something went wrong during the request. Please try again later.",
-        ),
-      )
-      .finally(() => setIsLoading(false));
-  };
+    setIsLoading(true);
 
-  const handleSaveArticle = (article) => {
-    setSavedArticles((prev) => [...prev, article]);
-  };
+    try {
+      const results = await searchNews(query);
 
-  const handleDeleteArticle = (article) => {
+      if (results.length === 0) {
+        setArticles([]);
+        return;
+      }
+
+      setArticles(results);
+    } catch (err) {
+      console.error(err);
+      setErrorMessage(ERROR_MESSAGES.requestFailed);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  function handleSaveArticle(article) {
+    const articleWithKeyword = {
+      ...article,
+      keyword:
+        lastSearchQuery.charAt(0).toUpperCase() + lastSearchQuery.slice(1),
+    };
+
+    setSavedArticles((prev) => [...prev, articleWithKeyword]);
+  }
+
+  function handleDeleteArticle(article) {
     setSavedArticles((prev) => prev.filter((a) => a.url !== article.url));
-  };
+  }
+
+  if (!isUserLoaded) {
+    return null;
+  }
 
   return (
     <>
-      <div className="page">
-        <div className="page__content">
-          <Header
-            onLoginClick={handleLoginClick}
-            currentUser={currentUser}
-            onLogout={handleLogout}
-          />
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Home
-                  onSearch={handleSearch}
-                  isLoading={isLoading}
+      <Header
+        isLoggedIn={isLoggedIn}
+        onLoginClick={handleLoginClick}
+        onLogoutClick={handleLogout}
+        userName={userName}
+        isSavedNewsPage={location.pathname === "/saved-news"}
+        isOpen={activeModal !== null}
+        onClose={() => setActiveModal(null)}
+      />
+
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Main
+                isLoading={isLoading}
+                articles={articles}
+                onSearch={handleSearch}
+                hasSearched={hasSearched}
+                searchError={searchError}
+                errorMessage={errorMessage}
+                isLoggedIn={isLoggedIn}
+                onSavedArticle={handleSaveArticle}
+              />
+
+              {isLoading && <Preloader />}
+
+              {!isLoading && articles.length > 0 && (
+                <NewsCardList
                   articles={articles}
-                  searchError={searchError}
-                  currentUser={currentUser}
-                  hasSearched={hasSearched}
-                  savedArticles={savedArticles}
-                  onSaveArticle={handleSaveArticle}
-                  keyword={lastKeyword}
+                  isLoggedIn={isLoggedIn}
+                  onSave={handleSaveArticle}
                 />
-              }
-            />
-            <Route
-              path="/saved-news"
-              element={
-                currentUser ? (
-                  <SavedNews
-                    currentUser={currentUser}
-                    savedArticles={savedArticles}
-                    onDeleteArticle={handleDeleteArticle}
-                  />
-                ) : (
-                  <Navigate to="/" />
-                )
-              }
-            />
-          </Routes>
-          <Footer />
-        </div>
-      </div>
-      {activeModal === "login" && (
-        <LoginModal
-          onClose={handleCloseModal}
-          onAltClick={handleRegisterClick}
-          onLogin={handleLogin}
-          registeredUser={registeredUser}
-          isOpen={activeModal === "login"}
+              )}
+
+              <About />
+
+              {activeModal === "login" && (
+                <LoginModal
+                  isOpen={activeModal === "login"}
+                  onClose={() => setActiveModal(null)}
+                  onLogin={handleLoginSubmit}
+                  onSwitchToSignUp={() => setActiveModal("register")}
+                />
+              )}
+
+              {activeModal === "register" && (
+                <RegisterModal
+                  isOpen={activeModal === "register"}
+                  onClose={() => setActiveModal(null)}
+                  onRegister={handleRegister}
+                  onSwitchToSignIn={() => setActiveModal("login")}
+                />
+              )}
+
+              {activeModal === "success" && (
+                <SuccessModal
+                  isOpen={activeModal === "success"}
+                  onClose={() => setActiveModal(null)}
+                  onSignIn={() => setActiveModal("login")}
+                />
+              )}
+
+              <Footer />
+            </>
+          }
         />
-      )}
-      {activeModal === "register" && (
-        <RegisterModal
-          onClose={handleCloseModal}
-          onAltClick={handleLoginClick}
-          onSuccess={handleRegister}
-          isOpen={activeModal === "register"}
+
+        <Route
+          path="/saved-news"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <>
+                <SavedNews
+                  savedArticles={savedArticles}
+                  userName={userName}
+                  isLoggedIn={isLoggedIn}
+                  onDeleteArticle={handleDeleteArticle}
+                />
+                <Footer />
+              </>
+            </ProtectedRoute>
+          }
         />
-      )}
-      {activeModal === "success" && (
-        <successModal
-          onClose={handleCloseModal}
-          onSignInClick={handleLoginClick}
-        />
-      )}
+      </Routes>
     </>
   );
 }

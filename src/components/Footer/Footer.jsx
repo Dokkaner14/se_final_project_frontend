@@ -1,35 +1,51 @@
 import "./Footer.css";
-import github from "../../assets/github.svg";
-import linkedin from "../../assets/linkedin.svg";
+import githubIcon from "../../assets/githubLogo.svg";
+import LinkedInIcon from "../../assets/LinkedInLogo.svg";
 
-export default function Footer() {
+function Footer() {
   return (
     <footer className="footer">
-      <p className="footer__text">© 2026 Supersite, Powered by News API</p>
-      <div className="footer__links">
-        <div className="footer__nav">
-          <a className="footer__link" href="https://practicum.com/">
+      <p className="footer__copyright">
+        © 2026 NewsExplorer, powered by News API
+      </p>
+
+      <div className="footer__right">
+        <nav className="footer__nav">
+          <a href="/" className="footer__link">
             Home
           </a>
           <a
+            href="https://tripleten.com"
+            target="_blank"
+            rel="noreferrer"
             className="footer__link"
-            href="https://hub.tripleten.com/u/1803040f"
           >
             TripleTen
           </a>
-        </div>
-        <div className="footer__icons">
-          <a className="footer__link" href="https://github.com/Mike-Borges">
-            <img src={github} alt="GitHub" className="footer__icon" />
-          </a>
+        </nav>
+
+        <div className="footer__social">
           <a
-            className="footer__link"
-            href="https://www.linkedin.com/in/michael-borges-689667288/"
+            href="https://github.com"
+            className="footer__social-link"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <img src={linkedin} alt="LinkedIn" className="footer__icon" />
+            <img src={githubIcon} alt="GitHub" />
+          </a>
+
+          <a
+            href="https://linkedin.com"
+            className="footer__social-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src={LinkedInIcon} alt="LinkedIn" />
           </a>
         </div>
       </div>
     </footer>
   );
 }
+
+export default Footer;
