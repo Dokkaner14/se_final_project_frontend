@@ -1,10 +1,11 @@
 import "./About.css";
-import homePhoto from "../../assets/frontPageBackground.svg";
+import aboutImage from "../../assets/About.jpg";
 
 export default function About() {
   return (
     <section className="about">
-      <img src={homePhoto} alt="Photo of Jose Soto" className="about__image" />
+      <img className="about__image" src={aboutImage} alt="Jose Soto" />
+
       <div className="about__info">
         <h2 className="about__title">About the author</h2>
         <p className="about__description">

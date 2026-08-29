@@ -2,6 +2,10 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import "./SearchForm.css";
 
+SearchForm.propTypes = {
+  onSearch: PropTypes.func.isRequired,
+};
+
 function SearchForm({ onSearch }) {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -30,9 +34,5 @@ function SearchForm({ onSearch }) {
     </section>
   );
 }
-
-SearchForm.propTypes = {
-  onSearch: PropTypes.func.isRequired,
-};
 
 export default SearchForm;

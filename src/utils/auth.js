@@ -1,7 +1,16 @@
+const currentUser = {
+  name: "Current User",
+  email: "user@example.com",
+};
+
 export function fakeLogin(email) {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve({ token: "fake-jwt-token", name: "S", email });
+      resolve({
+        token: "fake-jwt-token",
+        name: currentUser.name,
+        email: email || currentUser.email,
+      });
     }, 800);
   });
 }
@@ -10,7 +19,10 @@ export function fakeCheckToken(token) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (token === "fake-jwt-token") {
-        resolve({ name: "success", email: "test@example.com" });
+        resolve({
+          name: currentUser.name,
+          email: currentUser.email,
+        });
       } else {
         reject("Invalid token");
       }

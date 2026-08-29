@@ -3,6 +3,15 @@ import PropTypes from "prop-types";
 import nothingFound from "../../assets/nothingFound.svg";
 import "./Main.css";
 
+Main.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+  articles: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onSearch: PropTypes.func.isRequired,
+  hasSearched: PropTypes.bool.isRequired,
+  searchError: PropTypes.string,
+  errorMessage: PropTypes.string,
+};
+
 function Main({
   isLoading,
   articles,
@@ -48,14 +57,5 @@ function Main({
     </>
   );
 }
-
-Main.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
-  articles: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onSearch: PropTypes.func.isRequired,
-  hasSearched: PropTypes.bool.isRequired,
-  searchError: PropTypes.string,
-  errorMessage: PropTypes.string,
-};
 
 export default Main;

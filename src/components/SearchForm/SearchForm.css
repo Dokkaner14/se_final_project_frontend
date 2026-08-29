@@ -1,7 +1,7 @@
 .search-form {
   display: flex;
   justify-content: center;
-  margin-top: 160px;
+  margin-top: 88px;
 }
 
 .search-form__form {
@@ -67,7 +67,7 @@
   .search-form {
     gap: 12px;
     padding: 0;
-    margin-top: 32px;
+    margin-top: 16px;
   }
 
   .search-form__form {
