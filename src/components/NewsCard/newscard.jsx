@@ -2,7 +2,13 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import "./NewsCard.css";
 
-function NewsCard({ article, isLoggedIn, isSavedNewsPage, onSave, onDelete }) {
+function NewsCard({
+  article,
+  isLoggedIn,
+  isSavedNewsPage = false,
+  onSave,
+  onDelete,
+}) {
   const [isVisuallySaved, setIsVisuallySaved] = useState(false);
 
   function handleSave(e) {
@@ -108,12 +114,6 @@ NewsCard.propTypes = {
   isSavedNewsPage: PropTypes.bool,
   onSave: PropTypes.func,
   onDelete: PropTypes.func,
-};
-
-NewsCard.defaultProps = {
-  isSavedNewsPage: false,
-  onSave: undefined,
-  onDelete: undefined,
 };
 
 export default NewsCard;

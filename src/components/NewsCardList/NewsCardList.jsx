@@ -8,7 +8,7 @@ function NewsCardList({
   isLoggedIn,
   onSave,
   onDelete,
-  isSavedNewsPage,
+  isSavedNewsPage = false,
 }) {
   const [visibleCount, setVisibleCount] = useState(3);
 
@@ -54,12 +54,6 @@ NewsCardList.propTypes = {
   onSave: PropTypes.func,
   onDelete: PropTypes.func,
   isSavedNewsPage: PropTypes.bool,
-};
-
-NewsCardList.defaultProps = {
-  isSavedNewsPage: false,
-  onSave: undefined,
-  onDelete: undefined,
 };
 
 export default NewsCardList;
