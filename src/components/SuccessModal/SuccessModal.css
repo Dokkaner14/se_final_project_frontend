@@ -1,4 +1,4 @@
-.modal {
+.modal-success {
   z-index: 100;
   position: fixed;
   inset: 0;
@@ -8,12 +8,15 @@
   padding-top: 280px;
 }
 
-.modal__overlay {
-  z-index: 101;
+.modal-success__overlay {
   position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 0;
+  cursor: pointer;
 }
 
-.modal__title-success {
+.modal-success__title {
   font-size: 24px;
   font-weight: 900;
   margin-top: 43px;
@@ -21,16 +24,16 @@
   font-family: "roboto", Arial, Helvetica, sans-serif;
 }
 
-.modal__container-success {
+.modal-success__container {
   border-radius: 16px;
   background: #ffffff;
   position: relative;
-  z-index: 102;
+  z-index: 1;
   width: 430px;
   height: 182px;
 }
 
-.modal__submit-success {
+.modal-success__submit {
   color: #2f71e5;
   border: none;
   background: none;
@@ -43,17 +46,23 @@
   cursor: pointer;
 }
 
-.modal__close-success {
+.modal-success__close {
   position: absolute;
   display: block;
   top: -40px;
   right: -40px;
   background: none;
   border: none;
+  cursor: pointer;
+}
+
+.modal-success__close-button {
+  width: 40px;
+  height: 40px;
 }
 
 @media (max-width: 480px) {
-  .modal__container-success {
+  .modal-success__container {
     position: fixed;
     top: 100px;
     width: 90%;
@@ -62,7 +71,7 @@
     transform: translateX(-50%);
   }
 
-  .modal__close-success {
+  .modal-success__close {
     display: none;
   }
 }

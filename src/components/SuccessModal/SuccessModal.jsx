@@ -6,23 +6,23 @@ function SuccessModal({ isOpen, onClose, onSignIn }) {
   if (!isOpen) return null;
 
   return (
-    <div className="modal">
-      <div className="modal__overlay" onClick={onClose}></div>
+    <div className="modal-success">
+      <div className="modal-success__overlay" onClick={onClose}></div>
 
-      <div className="modal__container-success">
-        <button className="modal__close modal__close-success" onClick={onClose}>
+      <div className="modal-success__container">
+        <button className="modal-success__close" onClick={onClose}>
           <img
-            className="modal__close-button"
+            className="modal-success__close-button"
             src={closeButton}
             alt="closeButton"
           />
         </button>
 
-        <h2 className="modal__title-success">
+        <h2 className="modal-success__title">
           Registration successfully <br /> completed!
         </h2>
 
-        <button className="modal__submit-success" onClick={onSignIn}>
+        <button className="modal-success__submit" onClick={onSignIn}>
           Sign in
         </button>
       </div>

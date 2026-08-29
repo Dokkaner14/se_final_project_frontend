@@ -34,14 +34,24 @@ function ModalWithForm({
     <div className="modal">
       <div className="modal__overlay" onClick={onClose}></div>
       <div className="modal__container">
-        <button className="modal__close-desktop" onClick={onClose}>
+        <button
+          type="button"
+          className="modal__close-desktop"
+          onClick={onClose}
+          aria-label="Close modal"
+        >
           <img
             className="modal__close-button"
             src={closeButton}
             alt="closeButton"
           />
         </button>
-        <button className="modal__close-mobile">
+        <button
+          type="button"
+          className="modal__close-mobile"
+          onClick={onClose}
+          aria-label="Close modal"
+        >
           <img
             className="modal__close-button"
             src={closeButton}
