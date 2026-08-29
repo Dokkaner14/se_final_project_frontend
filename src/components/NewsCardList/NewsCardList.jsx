@@ -53,7 +53,13 @@ NewsCardList.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   onSave: PropTypes.func,
   onDelete: PropTypes.func,
-  isSavedNewsPage: PropTypes.bool.isRequired,
+  isSavedNewsPage: PropTypes.bool,
+};
+
+NewsCardList.defaultProps = {
+  isSavedNewsPage: false,
+  onSave: undefined,
+  onDelete: undefined,
 };
 
 export default NewsCardList;

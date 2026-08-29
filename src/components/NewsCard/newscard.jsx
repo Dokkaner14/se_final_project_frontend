@@ -105,9 +105,15 @@ NewsCard.propTypes = {
     source: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   }).isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
-  isSavedNewsPage: PropTypes.bool.isRequired,
+  isSavedNewsPage: PropTypes.bool,
   onSave: PropTypes.func,
   onDelete: PropTypes.func,
+};
+
+NewsCard.defaultProps = {
+  isSavedNewsPage: false,
+  onSave: undefined,
+  onDelete: undefined,
 };
 
 export default NewsCard;

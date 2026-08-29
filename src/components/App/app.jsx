@@ -167,6 +167,7 @@ function App() {
                   articles={articles}
                   isLoggedIn={isLoggedIn}
                   onSave={handleSaveArticle}
+                  isSavedNewsPage={false}
                 />
               )}
 
