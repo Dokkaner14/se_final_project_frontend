@@ -72,12 +72,13 @@ function RegisterModal({
       switchText="Sign in"
       isSubmitDisabled={!isFormValid}
     >
-      <label className="modal__label">
+      <label className="modal__label" htmlFor="register-email">
         Email
         <input
+          id="register-email"
           type="email"
           className="modal__input"
-          name="fake-register-email"
+          name="register-email"
           autoComplete="new-email"
           autoCorrect="off"
           autoCapitalize="off"
@@ -92,12 +93,13 @@ function RegisterModal({
         {emailError && <span className="modal__error">{emailError}</span>}
       </label>
 
-      <label className="modal__label">
+      <label className="modal__label" htmlFor="register-password">
         Password
         <input
+          id="register-password"
           type="password"
           className="modal__input"
-          name="fake-register-password"
+          name="register-password"
           autoComplete="new-password"
           autoCorrect="off"
           autoCapitalize="off"
@@ -112,12 +114,13 @@ function RegisterModal({
         {passwordError && <span className="modal__error">{passwordError}</span>}
       </label>
 
-      <label className="modal__label">
+      <label className="modal__label" htmlFor="register-name">
         Name
         <input
+          id="register-name"
           type="text"
           className="modal__input"
-          name="fake-register-name"
+          name="register-name"
           autoComplete="new-name"
           autoCorrect="off"
           autoCapitalize="off"

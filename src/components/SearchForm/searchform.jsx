@@ -20,6 +20,8 @@ function SearchForm({ onSearch }) {
     <section className="search-form">
       <form className="search-form__form" onSubmit={handleSubmit}>
         <input
+          id="search-topic"
+          name="search-topic"
           type="text"
           className="search-form__input"
           value={searchTerm}

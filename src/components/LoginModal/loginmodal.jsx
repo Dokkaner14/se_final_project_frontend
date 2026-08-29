@@ -55,12 +55,13 @@ function LoginModal({
       switchText="Sign up"
       isSubmitDisabled={!isFormValid}
     >
-      <label className="modal__label">
+      <label className="modal__label" htmlFor="login-email">
         Email
         <input
+          id="login-email"
           type="email"
           className="modal__input"
-          name="fake-email"
+          name="login-email"
           autoComplete="new-email"
           autoCorrect="off"
           autoCapitalize="off"
@@ -75,12 +76,13 @@ function LoginModal({
         {emailError && <span className="modal__error">{emailError}</span>}
       </label>
 
-      <label className="modal__label">
+      <label className="modal__label" htmlFor="login-password">
         Password
         <input
+          id="login-password"
           type="password"
           className="modal__input"
-          name="fake-password"
+          name="login-password"
           autoComplete="new-password"
           autoCorrect="off"
           autoCapitalize="off"
