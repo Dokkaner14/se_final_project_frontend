@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { searchNews } from "../../utils/newsApi";
 import { ERROR_MESSAGES } from "../../utils/errors";
 import { fakeCheckToken, fakeLogin } from "../../utils/auth";
-import Header from "../Header/Header";
+import Header from "../Header/header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import LoginModal from "../LoginModal/LoginModal";
