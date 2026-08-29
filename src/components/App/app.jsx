@@ -15,7 +15,7 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import SuccessModal from "../SuccessModal/SuccessModal";
 import Preloader from "../PreLoader/PreLoader";
 import NewsCardList from "../NewsCardList/NewsCardList";
-import "./App.css";
+import "./app.css";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
