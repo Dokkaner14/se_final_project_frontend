@@ -1,6 +1,6 @@
-import NewsCardList from "../newsCardList/NewsCardList";
+import NewsCardList from "../newsCardList/newsCardList";
 import PropTypes from "prop-types";
-import "./SavedNews.css";
+import "./savedNews.css";
 
 function SavedNews({ userName, savedArticles, isLoggedIn, onDeleteArticle }) {
   const keywords = [

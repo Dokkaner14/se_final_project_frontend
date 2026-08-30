@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import "./SearchForm.css";
+import "./searchForm.css";
 
 SearchForm.propTypes = {
   onSearch: PropTypes.func.isRequired,

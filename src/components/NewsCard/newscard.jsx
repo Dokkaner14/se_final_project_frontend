@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import "./NewsCard.css";
+import "./newsCard.css";
 
 function NewsCard({
   article,

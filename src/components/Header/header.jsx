@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import Navigation from "../Navigation/Navigation";
+import Navigation from "../navigation/navigation";
 import NewsExplorerWhite from "../../assets/NewsExplorerWhite.svg";
 import NewsExplorerBlack from "../../assets/NewsExplorerBlack.svg";
 import closeButton from "../../assets/closeButton.svg";
-import "./Header.css";
+import "./header.css";
 
 function Header({
   isLoggedIn,

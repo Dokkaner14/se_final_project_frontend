@@ -1,4 +1,4 @@
-import "./SuccessModal.css";
+import "./successModal.css";
 import PropTypes from "prop-types";
 import closeButton from "../../assets/closeButton.svg";
 

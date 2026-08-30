@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import "./RegisterModal.css";
+import ModalWithForm from "../modalwithform/modalwithfrom";
+import "./registerModal.css";
 
 function RegisterModal({
   isOpen,

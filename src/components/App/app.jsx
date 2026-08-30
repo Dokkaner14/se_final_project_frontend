@@ -8,13 +8,13 @@ import Header from "../header/header";
 import Main from "../main/main";
 import Footer from "../footer/footer";
 import LoginModal from "../loginmodal/loginModal";
-import RegisterModal from "../registerModal/registerModal";
-import SavedNews from "../savedNews/savedNews";
+import RegisterModal from "../registermodal/registerModal";
+import SavedNews from "../savednews/savedNews";
 import About from "../about/about";
-import ProtectedRoute from "../protectedRoute/protectedRoute";
+import ProtectedRoute from "../protectedroute/protectedRoute";
 import SuccessModal from "../successModal/successModal";
-import Preloader from "../preLoader/preLoader";
-import NewsCardList from "../newsCardList/NewsCardList";
+import Preloader from "../preloader/preLoader";
+import NewsCardList from "../newsCardList/newsCardList";
 import "./app.css";
 
 function App() {
