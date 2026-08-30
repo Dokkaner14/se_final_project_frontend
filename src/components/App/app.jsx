@@ -4,17 +4,17 @@ import { useLocation } from "react-router-dom";
 import { searchNews } from "../../utils/newsApi";
 import { ERROR_MESSAGES } from "../../utils/errors";
 import { fakeCheckToken, fakeLogin } from "../../utils/auth";
-import Header from "../Header/header";
-import Main from "../Main/Main";
-import Footer from "../Footer/Footer";
-import LoginModal from "../LoginModal/LoginModal";
-import RegisterModal from "../RegisterModal/RegisterModal";
-import SavedNews from "../SavedNews/SavedNews";
-import About from "../About/About";
-import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-import SuccessModal from "../SuccessModal/SuccessModal";
-import Preloader from "../PreLoader/PreLoader";
-import NewsCardList from "../NewsCardList/NewsCardList";
+import Header from "../header/header";
+import Main from "../main/main";
+import Footer from "../footer/footer";
+import LoginModal from "../loginmodal/loginModal";
+import RegisterModal from "../registerModal/registerModal";
+import SavedNews from "../savedNews/savedNews";
+import About from "../about/about";
+import ProtectedRoute from "../protectedRoute/protectedRoute";
+import SuccessModal from "../successModal/successModal";
+import Preloader from "../preLoader/preLoader";
+import NewsCardList from "../newsCardList/NewsCardList";
 import "./app.css";
 
 function App() {

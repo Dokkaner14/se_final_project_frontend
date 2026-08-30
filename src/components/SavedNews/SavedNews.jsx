@@ -1,4 +1,4 @@
-import NewsCardList from "../NewsCardList/NewsCardList";
+import NewsCardList from "../newsCardList/NewsCardList";
 import PropTypes from "prop-types";
 import "./SavedNews.css";
 
