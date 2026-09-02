@@ -7,14 +7,14 @@ import { fakeCheckToken, fakeLogin } from "../../utils/auth";
 import Header from "../Header/header";
 import Main from "../Main/main";
 import Footer from "../Footer/Footer";
-import LoginModal from "../LoginModal/loginModal";
-import RegisterModal from "../RegisterModal/registerModal";
-import SavedNews from "../SavedNews/savedNews";
-import About from "../About/about";
-import ProtectedRoute from "../ProtectedRoute/protectedRoute";
-import SuccessModal from "../SuccessModal/successModal";
-import Preloader from "../Preloader/preLoader";
-import NewsCardList from "../newsCardList/newsCardList";
+import LoginModal from "../LoginModal/loginmodal";
+import RegisterModal from "../RegisterModal/RegisterModal";
+import SavedNews from "../SavedNews/SavedNews";
+import About from "../About/About";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import SuccessModal from "../SuccessModal/SuccessModal";
+import Preloader from "../PreLoader/preloader";
+import NewsCardList from "../NewsCardList/NewsCardList";
 import "./app.css";
 
 function App() {
