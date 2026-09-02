@@ -6,7 +6,7 @@ import { ERROR_MESSAGES } from "../../utils/errors";
 import { fakeCheckToken, fakeLogin } from "../../utils/auth";
 import Header from "../Header/header";
 import Main from "../Main/main";
-import Footer from "../Footer/footer";
+import Footer from "../Footer/Footer";
 import LoginModal from "../LoginModal/loginModal";
 import RegisterModal from "../RegisterModal/registerModal";
 import SavedNews from "../SavedNews/savedNews";
