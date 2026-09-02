@@ -24,6 +24,13 @@
   cursor: pointer;
   position: relative;
   display: inline-block;
+  transition: opacity 0.2s ease;
+}
+
+.navigation__link:hover,
+.navigation__button:hover,
+.navigation__mobile-link:hover {
+  opacity: 0.7;
 }
 
 .navigation__list li {

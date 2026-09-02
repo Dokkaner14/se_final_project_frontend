@@ -19,6 +19,19 @@
   border: none;
   border-bottom: 1px solid #ccc;
   font-size: 16px;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.modal__input:-webkit-autofill,
+.modal__input:-webkit-autofill:hover,
+.modal__input:-webkit-autofill:focus,
+.modal__input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+  -webkit-text-fill-color: #000 !important;
+  background-color: #ffffff !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 .modal__submit {

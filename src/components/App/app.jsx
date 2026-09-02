@@ -133,7 +133,7 @@ function App() {
   }
 
   return (
-    <>
+    <div className="page__content">
       <Header
         isLoggedIn={isLoggedIn}
         onLoginClick={handleLoginClick}
@@ -198,8 +198,6 @@ function App() {
                   onSignIn={() => setActiveModal("login")}
                 />
               )}
-
-              <Footer />
             </>
           }
         />
@@ -208,20 +206,19 @@ function App() {
           path="/saved-news"
           element={
             <ProtectedRoute isLoggedIn={isLoggedIn}>
-              <>
-                <SavedNews
-                  savedArticles={savedArticles}
-                  userName={userName}
-                  isLoggedIn={isLoggedIn}
-                  onDeleteArticle={handleDeleteArticle}
-                />
-                <Footer />
-              </>
+              <SavedNews
+                savedArticles={savedArticles}
+                userName={userName}
+                isLoggedIn={isLoggedIn}
+                onDeleteArticle={handleDeleteArticle}
+              />
             </ProtectedRoute>
           }
         />
       </Routes>
-    </>
+
+      <Footer />
+    </div>
   );
 }
 
