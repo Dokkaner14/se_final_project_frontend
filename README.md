@@ -1,7 +1,7 @@
 NewsExplorer is a fully responsive React application that allows users to search for news articles using the News API, view real‑time results, and save articles using simulated authentication
 NewsExplorer is a fully responsive React application that allows users to search for news articles using the News API, view real‑time results, and save articles using simulated authentication. The project focuses on front‑end architecture, dynamic UI rendering, responsive design, and handling external API data.
 
-Features Search for news articles using the News API
+Features Search for news articles using the News API are as follows
 
 Real‑time results displayed as responsive cards
 
