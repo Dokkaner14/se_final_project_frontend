@@ -1,4 +1,4 @@
-import SearchForm from "../searchform/searchForm";
+import SearchForm from "../SearchForm/searchform";
 import PropTypes from "prop-types";
 import nothingFound from "../../assets/nothingFound.svg";
 import "./main.css";

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import Navigation from "../navigation/navigation";
+import Navigation from "../Navigation/navigation";
 import NewsExplorerWhite from "../../assets/NewsExplorerWhite.svg";
 import NewsExplorerBlack from "../../assets/NewsExplorerBlack.svg";
 import closeButton from "../../assets/closeButton.svg";
