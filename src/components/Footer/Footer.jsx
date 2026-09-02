@@ -1,4 +1,4 @@
-import "./footer.css";
+import "./Footer.css";
 import githubIcon from "../../assets/githubLogo.svg";
 import LinkedInIcon from "../../assets/LinkedInLogo.svg";
 

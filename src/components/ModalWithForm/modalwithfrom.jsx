@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import PropTypes from "prop-types";
-import "./modalWithForm.css";
+import "./ModalWithForm.css";
 import closeButton from "../../assets/closeButton.svg";
 
 function ModalWithForm({

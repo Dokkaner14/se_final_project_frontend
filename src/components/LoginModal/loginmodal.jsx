@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import ModalWithForm from "../modalwithform/modalWithFrom";
-import "./loginModal.css";
+import ModalWithForm from "../ModalWithForm/modalwithfrom";
+import "./LoginModal.css";
 
 function LoginModal({
   isOpen,

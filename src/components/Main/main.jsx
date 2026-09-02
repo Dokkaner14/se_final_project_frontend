@@ -1,7 +1,7 @@
 import SearchForm from "../SearchForm/searchform";
 import PropTypes from "prop-types";
 import nothingFound from "../../assets/nothingFound.svg";
-import "./main.css";
+import "./Main.css";
 
 Main.propTypes = {
   isLoading: PropTypes.bool.isRequired,

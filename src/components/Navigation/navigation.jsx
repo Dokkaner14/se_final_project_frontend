@@ -5,7 +5,7 @@ import signOut from "../../assets/signOut.svg";
 import menu from "../../assets/menu.svg";
 import closeButton from "../../assets/closeButton.svg";
 import NewsExplorerWhite from "../../assets/NewsExplorerWhite.svg";
-import "./navigation.css";
+import "./Navigation.css";
 
 function Navigation({
   isLoggedIn,
