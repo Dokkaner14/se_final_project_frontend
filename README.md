@@ -30,3 +30,6 @@ https://www.loom.com/share/e257644e29fa41009de5521263854dd7
 
 link to guthub repository
 https://github.com/Dokkaner14/se_final_project_frontend
+
+link to deployed project
+https://dokkaner14.github.io/se_final_project_frontend/
