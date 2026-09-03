@@ -1,0 +1,59 @@
+import { useState } from "react";
+import PropTypes from "prop-types";
+import "./NewsCardList.css";
+import NewsCard from "../NewsCard/newscard";
+
+function NewsCardList({
+  articles,
+  isLoggedIn,
+  onSave,
+  onDelete,
+  isSavedNewsPage = false,
+}) {
+  const [visibleCount, setVisibleCount] = useState(3);
+
+  return (
+    <section className="news-card-list">
+      {!isSavedNewsPage && (
+        <h2 className="news-card-list__title">Search results</h2>
+      )}
+
+      <ul className="news-card-list__grid">
+        {(isSavedNewsPage ? articles : articles.slice(0, visibleCount)).map(
+          (article, index) => (
+            <li key={`${article.title}-${index}`}>
+              <NewsCard
+                article={article}
+                isLoggedIn={isLoggedIn}
+                onSave={onSave}
+                onDelete={onDelete}
+                isSavedNewsPage={isSavedNewsPage}
+              />
+            </li>
+          ),
+        )}
+      </ul>
+
+      {!isSavedNewsPage && articles.length > visibleCount && (
+        <div className="search-results">
+          <button
+            className="search-results__show-more"
+            onClick={() => setVisibleCount(visibleCount + 3)}
+          >
+            Show more
+          </button>
+        </div>
+      )}
+    </section>
+  );
+}
+
+NewsCardList.propTypes = {
+  articles: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+  onSave: PropTypes.func,
+  onDelete: PropTypes.func,
+  isSavedNewsPage: PropTypes.bool,
+};
+
+export default NewsCardList;
