@@ -114,7 +114,7 @@
     flex-direction: column;
     gap: 12px;
     position: static;
-    margin: 0;
+    margin: 16px;
   }
 
   .search-form__input {
